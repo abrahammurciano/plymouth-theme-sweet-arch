@@ -1,0 +1,54 @@
+fun set_scaled_sprite(sprite, image, zoom) {
+	sprite.SetImage(image.Scale(image.GetWidth() * zoom, image.GetHeight() * zoom));
+}
+
+fun position_sprite(sprite, x, y) {
+	sprite.SetX(Window.GetWidth() * x - sprite.GetImage().GetWidth() / 2);
+	sprite.SetY(Window.GetHeight() * y - sprite.GetImage().GetHeight() / 2);
+}
+
+fun ease_coefficient(percent) {
+	return (percent * percent) / (percent * percent + (1 - percent) * (1 - percent));
+}
+
+fun ease_value(min, max, percent) {
+	return min + ease_coefficient(percent) * (max - min);
+}
+
+fun animate_in_zoom(sprite, image, min, max, percent, x, y) {
+	set_scaled_sprite(sprite, image, ease_value(min, max, percent));
+	position_sprite(sprite, x, y);
+}
+
+fun animate_in_opacity(sprite, min, max, percent) {
+	sprite.SetOpacity(ease_value(min, max, percent));
+}
+
+Window.SetBackgroundTopColor(0.121, 0, 0.227);
+Window.SetBackgroundBottomColor(0.121, 0, 0.227);
+
+LOGO = Image("logo.png");
+LOGO_SPRITE = Sprite();
+
+SPINNER = Image("spinner.png");
+SPINNER_SPRITE = Sprite(SPINNER);
+position_sprite(SPINNER_SPRITE, 0.5, 0.8);
+SPINNER_SPRITE.SetOpacity(0.2);
+
+counter = 0;
+MIN_ITERATIONS = 150;
+MAX_ITERATIONS = 250;
+
+fun animate() {
+	++counter;
+	SPINNER_SPRITE.SetImage(SPINNER.Rotate((counter % 100) * 0.06283));
+	if (MIN_ITERATIONS < counter && counter <= MAX_ITERATIONS) {
+		percent = (counter - MIN_ITERATIONS) / (MAX_ITERATIONS - MIN_ITERATIONS);
+
+		animate_in_opacity(SPINNER_SPRITE, 0.2, 1, percent);
+		animate_in_opacity(LOGO_SPRITE, 0, 1, percent);
+		animate_in_zoom(LOGO_SPRITE, LOGO, 0.2, 1, percent, 0.5, 0.45);
+	}
+}
+
+Plymouth.SetRefreshFunction(animate);
