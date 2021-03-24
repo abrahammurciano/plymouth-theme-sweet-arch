@@ -6,9 +6,20 @@
 
 ## Installation
 
+### Arch
+
+```
+$ yay -S plymouth-theme-sweet-arch-git
+```
+
+### Other Distros
+
 - Download and extract this repository.
 - Move the folder called `sweet-arch` into `/usr/share/plymouth/themes/`
-- Set the theme with:
+
+## Set the Theme
+
+To set this theme as your plymouth theme, run the following command.
 ```
-sudo plymouth-set-default-theme -R sweet-arch
+$ sudo plymouth-set-default-theme -R sweet-arch
 ```
