@@ -33,7 +33,7 @@ LOGO_SPRITE = Sprite();
 SPINNER = Image("spinner.png");
 SPINNER_SPRITE = Sprite(SPINNER);
 position_sprite(SPINNER_SPRITE, 0.5, 0.8);
-SPINNER_SPRITE.SetOpacity(0.2);
+SPINNER_SPRITE.SetOpacity(0);
 
 counter = 0;
 MIN_ITERATIONS = 150;
@@ -45,9 +45,9 @@ fun animate() {
 	if (MIN_ITERATIONS < counter && counter <= MAX_ITERATIONS) {
 		percent = (counter - MIN_ITERATIONS) / (MAX_ITERATIONS - MIN_ITERATIONS);
 
-		animate_in_opacity(SPINNER_SPRITE, 0.2, 1, percent);
+		animate_in_opacity(SPINNER_SPRITE, 0, 1, percent);
 		animate_in_opacity(LOGO_SPRITE, 0, 1, percent);
-		animate_in_zoom(LOGO_SPRITE, LOGO, 0.2, 1, percent, 0.5, 0.45);
+		animate_in_zoom(LOGO_SPRITE, LOGO, 0, 1, percent, 0.5, 0.45);
 	}
 }
 
